@@ -4,7 +4,7 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "my-first-worker",
+	"name": "navplot2-scheduler",
 	"main": "src/index.js",
 	"compatibility_date": "2026-06-01",
 	"observability": {
@@ -12,7 +12,7 @@
 	},
 	"triggers": {
 		"crons": [
-			"* * * * *"
+			"49 * * * *"
 		]
 	},
 	"upload_source_maps": true,

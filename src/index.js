@@ -12,26 +12,28 @@
  * Learn more at https://developers.cloudflare.com/workers/
  */
 
+// Trigger happens 10 minutes before the hour
+const HOURS = [0, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17];
+
 export default {
-	async fetch(req) {
-		const url = new URL(req.url)
-		url.pathname = "/__scheduled";
-		url.searchParams.append("cron", "* * * * *");
-		return new Response(`To test the scheduled handler, ensure you have used the "--test-scheduled" then try running "curl ${url.href}".`);
-	},
-
-	// The scheduled handler is invoked at the interval set in our wrangler.jsonc's
-	// [[triggers]] configuration.
 	async scheduled(event, env, ctx) {
-		// A Cron Trigger can make requests to other endpoints on the Internet,
-		// publish to a Queue, query a D1 Database, and much more.
-		//
-		// We'll keep it simple and make an API call to a Cloudflare API:
-		let resp = await fetch('https://api.cloudflare.com/client/v4/ips');
-		let wasSuccessful = resp.ok ? 'success' : 'fail';
+    console.log('Scheduled request');
 
-		// You could store this result in KV, write to a D1 Database, or publish to a Queue.
-		// In this template, we'll just log the result:
-		console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`);
+    // Get UK local hour
+    const date = new Date().toLocaleString("en-US", {timeZone: "Europe/London"});
+    const hour = new Date(date).getHours();
+
+    if (HOURS.includes(hour)) {
+
+			// Trigger the NavPlot build
+			let resp = await fetch(
+				'https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/d40fbe15-82c8-4f6f-ba9b-2df8821832dd',
+				{
+					method: "POST"
+				});
+			let wasSuccessful = resp.ok ? 'success' : 'fail';
+
+			console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`);
+		}
 	},
 };
