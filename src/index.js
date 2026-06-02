@@ -36,6 +36,8 @@ export default {
   },
 
   async queue(batch, env, ctx) {
+	console.log('queue()');
+
     for (const msg of batch.messages) {
       console.log(msg.body);
 
