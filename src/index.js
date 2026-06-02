@@ -39,7 +39,7 @@ export default {
     for (const msg of batch.messages) {
       console.log(msg.body);
 
-      let resp await fetch('https://ntfy.sh/navplot_alerts', {
+      let resp = await fetch('https://ntfy.sh/navplot_alerts', {
         method: 'POST',
         body: msg.body
       });
