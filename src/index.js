@@ -16,7 +16,7 @@
 const HOURS = [0, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17];
 
 export default {
-	async scheduled(event, env, ctx) {
+  async scheduled(event, env, ctx) {
     console.log('Scheduled request');
 
     // Get UK local hour
@@ -24,16 +24,14 @@ export default {
     const hour = new Date(date).getHours();
 
     if (HOURS.includes(hour)) {
+      // Trigger the NavPlot build
+      let resp = await fetch(
+        'https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/d40fbe15-82c8-4f6f-ba9b-2df8821832dd',
+        {method: "POST"}
+    );
+    let wasSuccessful = resp.ok ? 'success' : 'fail';
 
-			// Trigger the NavPlot build
-			let resp = await fetch(
-				'https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/d40fbe15-82c8-4f6f-ba9b-2df8821832dd',
-				{
-					method: "POST"
-				});
-			let wasSuccessful = resp.ok ? 'success' : 'fail';
-
-			console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`);
-		}
-	},
+      console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`);
+    }
+  },
 };
