@@ -41,14 +41,14 @@ export default {
     for (const msg of batch.messages) {
       console.log(msg.body);
 
-      fetch('https://ntfy.sh/navplot_alerts', {
+      await fetch('https://ntfy.sh/navplot_alerts', {
         method: 'POST',
         body: 'cloudflare test',
         headers: {
           'Authorization': 'Bearer tk_ayma125n5opy66x9mhi23dw63xkcg'
         }
       })
-      .then(response => console.log(response.statusText)
+      .then(response => console.log("hello")
     }
   },
 };
