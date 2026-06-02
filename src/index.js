@@ -50,6 +50,7 @@ export default {
       });
       let wasSuccessful = resp.ok ? 'success' : 'fail';
 
+      console.log(`response: ${resp.body}`);
       console.log(`ntfy.sh notification: ${wasSuccessful}`);
     }
   },
