@@ -41,20 +41,15 @@ export default {
     for (const msg of batch.messages) {
       console.log(msg.body);
 
-      let resp = await fetch('https://ntfy.sh/navplot_alerts', {
+      fetch('https://ntfy.sh/navplot_alerts', {
         method: 'POST',
         body: 'cloudflare test',
         headers: {
           'Authorization': 'Bearer tk_ayma125n5opy66x9mhi23dw63xkcg'
         }
-      });
-      let wasSuccessful = resp.ok ? 'success' : 'fail';
-
-      for await (const chunk of resp.body) {
-        console.log(`chunk: ${chunk}`);
-      }
-
-      console.log(`ntfy.sh notification: ${wasSuccessful}`);
+      })
+      .then(response => response.text())
+      .then(data => console.log(data))
     }
   },
 };
