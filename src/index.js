@@ -34,4 +34,10 @@ export default {
       console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`);
     }
   },
+
+  async queue(batch, env, ctx) {
+    for (const msg of batch.messages) {
+      console.log(msg.body);
+    }
+  },
 };
