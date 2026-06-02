@@ -43,7 +43,7 @@ export default {
 
       let resp = await fetch('https://ntfy.sh/navplot_alerts', {
         method: 'POST',
-        body: msg.body
+        body: 'cloudflare test'
       });
       let wasSuccessful = resp.ok ? 'success' : 'fail';
 
