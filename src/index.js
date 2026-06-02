@@ -48,8 +48,7 @@ export default {
           'Authorization': 'Bearer tk_ayma125n5opy66x9mhi23dw63xkcg'
         }
       })
-      .then(response => response.status())
-      .then(data => console.log(data))
+      .then(response => console.log(response.statusText)
     }
   },
 };
