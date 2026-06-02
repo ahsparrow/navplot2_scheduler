@@ -51,7 +51,7 @@ export default {
       let wasSuccessful = resp.ok ? 'success' : 'fail';
 
       for await (const chunk of resp.body) {
-        console.log('chunk: ${chunk}'');
+        console.log(`chunk: ${chunk}`);
       }
 
       console.log(`ntfy.sh notification: ${wasSuccessful}`);
