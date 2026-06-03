@@ -25,10 +25,8 @@ export default {
 
     if (HOURS.includes(hour)) {
       // Trigger the NavPlot build
-      let resp = await fetch(
-        'https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/290f81b4-169e-44e2-aca6-52a11f6c9b7b',
-        {method: "POST"}
-      );
+			const WEBHOOK_URL = env.NAVPLOT_WEB_HOOK
+      let resp = await fetch(WEBHOOK_URL, {method: "POST"});
       let wasSuccessful = resp.ok ? 'success' : 'fail';
 
       console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`);
