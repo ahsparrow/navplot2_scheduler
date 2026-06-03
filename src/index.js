@@ -36,10 +36,25 @@ export default {
   },
 
   async queue(batch, env, ctx) {
-	  console.log('queue()');
+    console.log('queue()');
 
     for (const msg of batch.messages) {
       console.log(msg.body);
+
+      const WEBHOOK_URL = env.DISCORD_WEB_HOOK
+      fetch(WEBHOOK_URL, {
+          method: 'POST',
+          body: JSON.stringify({ content: 'Hello, Discord!' }),
+          headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => {
+          if (response.ok) {
+              console.log('Message sent successfully!');
+          } else {
+              console.error('Failed to send message:', response.status);
+          }
+      })
+      .catch(error => console.error('Error:', error));
     }
   },
 };
