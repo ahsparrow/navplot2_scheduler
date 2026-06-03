@@ -42,6 +42,8 @@ export default {
       console.log(msg.body);
 
       const WEBHOOK_URL = env.DISCORD_WEB_HOOK
+			console.log(WEBHOOK_URL);
+
       fetch(WEBHOOK_URL, {
           method: 'POST',
           body: JSON.stringify({ content: 'Hello, Discord!' }),
