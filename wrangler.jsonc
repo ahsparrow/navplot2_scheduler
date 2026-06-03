@@ -3,7 +3,7 @@
 
 	"name": "navplot2-scheduler",
 	"main": "src/index.js",
-	"compatibility_date": "2026-06-01",
+	"compatibility_date": "2026-06-03",
 
 	"triggers": {
 		"crons": [
@@ -18,4 +18,11 @@
 			}
 		]
 	}
+
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true
+    }
+  }
 }
