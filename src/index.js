@@ -13,46 +13,46 @@
  */
 
 // Trigger happens 10 minutes before the hour
-const HOURS = [0, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17];
+const HOURS = [0, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17]
 
 export default {
-  async scheduled(event, env, ctx) {
-    console.log('Scheduled request');
+  async scheduled (event, env, ctx) {
+    console.log('Scheduled request')
 
     // Get UK local hour
-    const date = new Date().toLocaleString("en-US", {timeZone: "Europe/London"});
-    const hour = new Date(date).getHours();
+    const date = new Date().toLocaleString('en-US', { timeZone: 'Europe/London' })
+    const hour = new Date(date).getHours()
 
     if (HOURS.includes(hour)) {
       // Trigger the NavPlot build
-			const WEBHOOK_URL = env.NAVPLOT_WEB_HOOK
-      let resp = await fetch(WEBHOOK_URL, {method: "POST"});
-      let wasSuccessful = resp.ok ? 'success' : 'fail';
+      const WEBHOOK_URL = env.NAVPLOT_WEB_HOOK
+      const resp = await fetch(WEBHOOK_URL, { method: 'POST' })
+      const wasSuccessful = resp.ok ? 'success' : 'fail'
 
-      console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`);
+      console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`)
     }
   },
 
-  async queue(batch, env, ctx) {
-    console.log('queue()');
+  async queue (batch, env, ctx) {
+    console.log('queue()')
 
     for (const msg of batch.messages) {
-      console.log(msg.body);
+      console.log(msg.body)
 
       const WEBHOOK_URL = env.DISCORD_WEB_HOOK
-      let response = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          body: JSON.stringify({ content: 'NavPlot build failure!!' }),
-          headers: { 'Content-Type': 'application/json' },
-      });
+      const response = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        body: JSON.stringify({ content: 'NavPlot build failure!!' }),
+        headers: { 'Content-Type': 'application/json' }
+      })
 
-			if (response.ok) {
-					console.log('Message sent successfully!');
-			} else {
-					console.error('Failed to send message:', response.status);
-			}
+      if (response.ok) {
+        console.log('Message sent successfully!')
+      } else {
+        console.error('Failed to send message:', response.status)
+      }
     }
 
-		batch.ackAll();
-  },
-};
+    batch.ackAll()
+  }
+}
