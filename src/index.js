@@ -26,7 +26,7 @@ export default {
     if (HOURS.includes(hour)) {
       // Trigger the NavPlot build
       let resp = await fetch(
-        'https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/d40fbe15-82c8-4f6f-ba9b-2df8821832dd',
+        'https://api.cloudflare.com/client/v4/workers/builds/deploy_hooks/290f81b4-169e-44e2-aca6-52a11f6c9b7b',
         {method: "POST"}
       );
       let wasSuccessful = resp.ok ? 'success' : 'fail';
@@ -36,19 +36,10 @@ export default {
   },
 
   async queue(batch, env, ctx) {
-	console.log('queue()');
+	  console.log('queue()');
 
     for (const msg of batch.messages) {
       console.log(msg.body);
-
-      await fetch('https://ntfy.sh/navplot_alerts', {
-        method: 'POST',
-        body: 'cloudflare test',
-        headers: {
-          'Authorization': 'Bearer tk_ayma125n5opy66x9mhi23dw63xkcg'
-        }
-      })
-      .then(response => console.log(response.statusText))
     }
   },
 };
