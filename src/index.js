@@ -44,7 +44,7 @@ export default {
       const WEBHOOK_URL = env.DISCORD_WEB_HOOK
       let response = await fetch(WEBHOOK_URL, {
           method: 'POST',
-          body: JSON.stringify({ content: 'Hello, Discord!' }),
+          body: JSON.stringify({ content: 'NavPlot build failure!!' }),
           headers: { 'Content-Type': 'application/json' },
       });
 
@@ -54,5 +54,7 @@ export default {
 					console.error('Failed to send message:', response.status);
 			}
     }
+
+		batch.ackAll();
   },
 };
