@@ -9,3 +9,5 @@ Trigger the NavPlot build and generate Discord notifications for NavPlot build f
 3. Create Cloudflare worker linked to the repository
 
 4. Create DISCORD_WEB_HOOK secret for Discord notification channel
+
+5. Add NAVPLOT_WEB_HOOK variable for triggering NavPlot build
