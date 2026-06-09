@@ -31,28 +31,5 @@ export default {
 
       console.log(`trigger fired at ${event.cron}: ${wasSuccessful}`)
     }
-  },
-
-  async queue (batch, env, ctx) {
-    console.log('queue()')
-
-    for (const msg of batch.messages) {
-      console.log(msg.body)
-
-      const WEBHOOK_URL = env.DISCORD_WEB_HOOK
-      const response = await fetch(WEBHOOK_URL, {
-        method: 'POST',
-        body: JSON.stringify({ content: 'NavPlot build failure!!' }),
-        headers: { 'Content-Type': 'application/json' }
-      })
-
-      if (response.ok) {
-        console.log('Message sent successfully!')
-      } else {
-        console.error('Failed to send message:', response.status)
-      }
-    }
-
-    batch.ackAll()
   }
 }
