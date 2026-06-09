@@ -11,6 +11,9 @@
     ]
   },
 
+  "workers_dev": false,
+  "preview_urls": false,
+
   "observability": {
     "logs": {
       "enabled": true,
