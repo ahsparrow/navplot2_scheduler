@@ -25,9 +25,6 @@ export default {
 
     if (HOURS.includes(hour)) {
       // Trigger the NavPlot build
-      const WEBHOOK_URL = env.NAVPLOT_WEB_HOOK
-      console.log('webhook')
-      console.log(WEBHOOK_URL)
       const resp = await fetch(WEBHOOK_URL, { method: 'POST' })
       const wasSuccessful = resp.ok ? 'success' : 'fail'
 
