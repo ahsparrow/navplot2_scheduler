@@ -5,6 +5,9 @@
   "main": "src/index.js",
   "compatibility_date": "2026-06-03",
 
+  // Don't over write NAVPLOT_WEB_HOOK on deploy
+  "keep_vars": true,
+
   "triggers": {
     "crons": [
       "49 * * * *"
